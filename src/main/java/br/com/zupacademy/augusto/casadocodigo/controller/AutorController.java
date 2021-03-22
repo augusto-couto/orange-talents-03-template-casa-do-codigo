@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,15 +18,23 @@ import br.com.zupacademy.augusto.casadocodigo.dto.AutorDto;
 import br.com.zupacademy.augusto.casadocodigo.form.AutorForm;
 import br.com.zupacademy.augusto.casadocodigo.model.Autor;
 import br.com.zupacademy.augusto.casadocodigo.repository.AutorRepository;
+import br.com.zupacademy.augusto.casadocodigo.validator.EmailDuplicadoValidator;
 
 @RestController
 @RequestMapping("/autores")
 public class AutorController {
 	
 	private AutorRepository autorRepository;
+	private EmailDuplicadoValidator emailValidator;
 	
-	public AutorController(AutorRepository autorRepository) {
+	public AutorController(AutorRepository autorRepository, EmailDuplicadoValidator emailValidator) {
 		this.autorRepository = autorRepository;
+		this.emailValidator = emailValidator;
+	}
+	
+	@InitBinder
+	public void inicio(WebDataBinder binder) {
+		binder.addValidators(emailValidator);
 	}
 	
 	@PostMapping

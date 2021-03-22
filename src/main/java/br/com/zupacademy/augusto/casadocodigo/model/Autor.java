@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 
 @Entity
 public class Autor {
@@ -16,17 +17,23 @@ public class Autor {
 	@Column(nullable = false)
 	private String nome;
 	@Column(nullable = false, unique = true)
+	@Email
 	private String email;
 	@Column(nullable = false, length = 400)
 	private String descricao;
 	private LocalDateTime registeredAt = LocalDateTime.now();
 	
-	public Autor(String nome, String email, String descricao) {
+	public Autor(String nome, @Email String email, String descricao) {
+		super();
 		this.nome = nome;
 		this.email = email;
 		this.descricao = descricao;
 	}
-	
+
+	@Deprecated
+	public Autor() {
+	}
+
 	public Long getId() {
 		return id;
 	}
