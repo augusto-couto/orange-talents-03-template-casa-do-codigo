@@ -6,8 +6,6 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,24 +16,15 @@ import br.com.zupacademy.augusto.casadocodigo.dto.CategoriaDto;
 import br.com.zupacademy.augusto.casadocodigo.form.CategoriaForm;
 import br.com.zupacademy.augusto.casadocodigo.model.Categoria;
 import br.com.zupacademy.augusto.casadocodigo.repository.CategoriaRepository;
-import br.com.zupacademy.augusto.casadocodigo.validator.NomeCategoriaDuplicadoValidator;
 
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
 	
 	private CategoriaRepository categoriaRepository;
-	private NomeCategoriaDuplicadoValidator nomeValidator;
 	
-	public CategoriaController(CategoriaRepository categoriaRepository,
-			NomeCategoriaDuplicadoValidator nomeValidator) {
+	public CategoriaController(CategoriaRepository categoriaRepository) {
 		this.categoriaRepository = categoriaRepository;
-		this.nomeValidator = nomeValidator;
-	}
-	
-	@InitBinder
-	public void inicio(WebDataBinder binder) {
-		binder.addValidators(nomeValidator);
 	}
 	
 	@PostMapping

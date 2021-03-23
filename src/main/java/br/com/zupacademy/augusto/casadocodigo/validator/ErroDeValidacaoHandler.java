@@ -33,5 +33,16 @@ public class ErroDeValidacaoHandler {
 		
 		return dto;
 	}
-
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(IllegalStateException.class)
+	public List<ErroDeFormularioDto> handle(IllegalStateException exception) {
+		List<ErroDeFormularioDto> dto = new ArrayList<>();
+		
+		String mensagem = exception.getMessage();
+		ErroDeFormularioDto erro = new ErroDeFormularioDto("" , mensagem);
+		dto.add(erro);
+		
+		return dto;
+	}
 }
