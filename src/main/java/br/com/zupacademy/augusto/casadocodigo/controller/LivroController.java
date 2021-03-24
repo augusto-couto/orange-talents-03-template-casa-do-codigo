@@ -1,5 +1,7 @@
 package br.com.zupacademy.augusto.casadocodigo.controller;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -9,7 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +29,7 @@ import br.com.zupacademy.augusto.casadocodigo.repository.LivroRepository;
 
 @RestController
 @RequestMapping("/livros")
-// 6
+// 7
 public class LivroController {
 	
 	// 3
@@ -47,6 +51,16 @@ public class LivroController {
 			sort = "titulo", direction = Direction.ASC, page = 0, size = 10) Pageable pageable) {
 		Page<Livro> livros = livroRepository.findAll(pageable);
 		return ListaLivroDto.converter(livros);
+	}
+	
+	@GetMapping("/{id}")
+	//1
+	public ResponseEntity<LivroDto> detalhar(@PathVariable Long id) {
+		Optional<Livro> livro = livroRepository.findById(id);
+		if (livro.isPresent()) {
+			return ResponseEntity.ok(new LivroDto(livro.get()));
+		}
+		return ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
