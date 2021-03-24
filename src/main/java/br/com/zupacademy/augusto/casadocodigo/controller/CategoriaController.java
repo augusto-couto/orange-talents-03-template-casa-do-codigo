@@ -19,8 +19,10 @@ import br.com.zupacademy.augusto.casadocodigo.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/categorias")
+//3
 public class CategoriaController {
 	
+	//1
 	private CategoriaRepository categoriaRepository;
 	
 	public CategoriaController(CategoriaRepository categoriaRepository) {
@@ -29,6 +31,7 @@ public class CategoriaController {
 	
 	@PostMapping
 	@Transactional
+	//2
 	private ResponseEntity<CategoriaDto> cadastrar(@RequestBody @Valid CategoriaForm categoriaForm,
 			UriComponentsBuilder componentsBuilder) {
 		

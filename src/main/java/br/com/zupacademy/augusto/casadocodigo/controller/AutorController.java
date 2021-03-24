@@ -19,8 +19,10 @@ import br.com.zupacademy.augusto.casadocodigo.repository.AutorRepository;
 
 @RestController
 @RequestMapping("/autores")
+// 3
 public class AutorController {
 	
+	// 1
 	private AutorRepository autorRepository;
 	
 	public AutorController(AutorRepository autorRepository) {
@@ -29,6 +31,7 @@ public class AutorController {
 	
 	@PostMapping
 	@Transactional
+	//2
 	public ResponseEntity<AutorDto> cadastrar(@RequestBody @Valid AutorForm autorForm, UriComponentsBuilder uriBuilder) {
 		Autor autor = autorForm.converter();
 		autorRepository.save(autor);

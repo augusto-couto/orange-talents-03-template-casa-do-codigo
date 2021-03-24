@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+//2
 public class ErroDeValidacaoHandler {
 	
 	@Autowired
 	private MessageSource messageSource;
 	
+	//1
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public List<ErroDeFormularioDto> handle(MethodArgumentNotValidException exception) {
@@ -34,6 +36,7 @@ public class ErroDeValidacaoHandler {
 		return dto;
 	}
 	
+	//1
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(IllegalStateException.class)
 	public List<ErroDeFormularioDto> handle(IllegalStateException exception) {

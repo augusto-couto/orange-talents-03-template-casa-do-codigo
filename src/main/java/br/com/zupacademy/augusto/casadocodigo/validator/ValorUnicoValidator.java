@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import br.com.zupacademy.augusto.casadocodigo.validator.annotation.ValorUnico;
 
+//3
 public class ValorUnicoValidator implements ConstraintValidator<ValorUnico, Object>{
 	
 	private String campoAtributo;
@@ -21,12 +22,14 @@ public class ValorUnicoValidator implements ConstraintValidator<ValorUnico, Obje
 	private EntityManager entityManager;
 	
 	@Override
+	//1
 	public void initialize(ValorUnico valorUnico) {
 		campoAtributo = valorUnico.campo();
 		classe = valorUnico.classe();
 	}
 
 	@Override
+	//2
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		Query query = entityManager.createQuery("SELECT 1 FROM " + classe.getName() +
 				" WHERE " + campoAtributo + "=:value");
